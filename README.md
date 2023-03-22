@@ -1,5 +1,6 @@
 # Storefront Backend Project
-
+//main
+//N TT
 ## Getting Started
 
 This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
@@ -52,3 +53,48 @@ Add JWT functionality as shown in the course. Make sure that JWTs are required f
 Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
 
 Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+
+
+## Installation Instructions
+First: `npm install`
+
+## Libraries and Packages used
+express-typescript-db-migrate-bcrypt-jsonwebtoken-jasmine-supertest-Postgres
+
+## Ports 
+Server runing on port `3000` and database on port `5432`
+
+## Start App
+Run `yarn watch`
+
+## Endpoint 
+All the endpoints are included in the [REQUIREMENT.md] file. 
+
+## Set up Database
+- connect to the  postgres database `psql -U postgres`
+- In psql create the dev and test database
+    - `CREATE DATABASE shop_dev;`
+    - `CREATE DATABASE shop_test;`
+
+### Migration 
+- yarn db-migrate up  
+- yarn db-migrate down
+
+### Testing
+To run the tests execute `yarn test`.
+
+
+### Environment variables 
+Here are the environmental variables that should be included in `.env` file.
+
+SERVER_PORT = 3000
+ENV = dev
+DATABASE_HOST = localhost
+DATABASE_PORT = 5432
+DATABASE = shop_dev
+DATABASE_TEST = shop_test
+DATABASE_USER = postgres
+DATABASE_PASS = N1O2U3R4A5
+BCRYPT_PASS = I-Hope-I-Pass
+SALT_ROUND = 8
+JWT_SECRET = your-secret-token

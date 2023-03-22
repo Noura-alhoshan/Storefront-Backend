@@ -5,27 +5,31 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- Index: `products/:id` [Get] -To get prodect by ID
+- Show `products/` [Get] -To get all the product
+- Create [token required] `products/` [Post] -To create product
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index [token required] `users/:id` [Get] -To get user by ID
+- Show [token required] `users/` [Get] -To get all the users
+- Create N[token required] `users/` [Post] -To create user
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Show [token required] `orders/` [Get] -To get all the orders in table
+- Current Order by user (args: user id)[token required]  `users/:userID` [Get] -To get order by user ID
+- Create N[token required] `orders/` [Post] -To create order
+
 
 ## Data Shapes
 #### Product
 -  id
 - name
 - price
-- [OPTIONAL] category
+
+Table: products( 
+  id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  price VARCHAR(50) NOT NULL)
 
 #### User
 - id
@@ -33,10 +37,45 @@ These are the notes from a meeting with the frontend developer that describe wha
 - lastName
 - password
 
+Table: users( 
+  id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,,
+  firstName VARCHAR(50) NOT NULL,
+  lastName VARCHAR(50) NOT NULL,
+  password VARCHAR(255) NOT NULL)
+
 #### Orders
 - id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
+- userid
 - status of order (active or complete)
 
+Table: orders(
+id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+  userid VARCHAR(50) NOT NULL,
+  status VARCHAR(255) NOT NULL,
+      CONSTRAINT fk_orders_users
+        FOREIGN KEY (userid)
+            REFERENCES users(id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE)
+
+#### Ordertoproducts
+-id
+-productid
+-orderid
+-productquantity
+
+Table: ordertoproducts (
+id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+  orderid VARCHAR(50) NOT NULL,
+  productid VARCHAR(50) NOT NULL,
+  productQuantity VARCHAR(255) NOT NULL,
+    CONSTRAINT fk_order
+        FOREIGN KEY (orderid)
+            REFERENCES orders(id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT fk_products
+        FOREIGN KEY (productid)
+            REFERENCES products(id)
+            ON DELETE CASCADE
+            ON  UPDATE CASCADE)
